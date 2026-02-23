@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Tracker</title>
+
+    <!-- Tailwind + DaisyUI -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        * {
+            font-family: "Geist", sans-serif;
+        }
+    </style>
+
+</head>
+
+<body class="container mx-auto">
+
+    <header class="mt-[60px]">
+        <h1 class="text-[32px] font-bold text-[#002C5C]">Job Application Tracker</h1>
+        <div class="grid grid-cols-3 gap-4">
+            <div class="card bg-primary/10 shadow-sm rounded-xl h-28 mt-[20px] p-[20px]">
+                <p class="text-[14px] text-[#323B49] font-medium">Total</p>
+                <p id="total-job" class="text-[24px] text-[#323B49] font-bold">0</p>
+            </div>
+
+            <div class="card bg-success/10 shadow-sm rounded-xl h-28 mt-[20px] p-[20px]">
+                <p class="text-[14px] text-[#323B49] font-medium">Interview</p>
+                <p id="total-interview" class="text-[24px] text-green-600 font-bold">0</p>
+            </div>
+
+            <div class="card bg-error/10 shadow-sm rounded-xl h-28 mt-[20px] p-[20px]">
+                <p class="text-[14px] text-[#323B49] font-medium">Rejected</p>
+                <p id="total-reject" class="text-[24px] text-red-600 font-bold">0</p>
+            </div>
+        </div>
+    </header>
+
+    <hr class="my-[30px] text-[#E6E7E9]">
+
+    <main>
+        <!-- Job Status Title -->
+        <div class="flex justify-between mb-[24px]">
+            <h1 class="text-[24px] text-[#111827] font-semibold">Available Jobs</h1>
+            <p class="text-[16px] text-[#64748B] font-medium">
+                <span id="rejected-total" class="hidden"> 8 </span>
+                <span id="interview-total" class="hidden"> 5 </span>
+                <span id="inter-reject" class="hidden"> of </span>
+                <span id="job-total"> 5 </span> jobs
+            </p>
+
+            <!-- <p class="text-[16px] text-[#64748B] font-medium"><span id="job-total"> 8 </span> <span id="inter-reject" class="hidden"> of <span id="interview-total" class="hidden"> 5 </span> <span id="rejected-total"
+                        class="hidden"> 5 </span> </span> jobs</p> -->
+
+        </div>
+
+        <!-- Navigation Button -->
+        <div class="flex justify-start gap-2 mb-[16px]">
+            <button onclick="toggle('btn-all-tab','all-job','job-total')" id="btn-all-tab"
+                class="btn btn-primary w-[80px]">All</button>
+            <button onclick="toggle('btn-interview-tab','interview-list','interview-total')" id="btn-interview-tab"
+                class="btn px-[20px]">Interview</button>
+            <button onclick="toggle('btn-reject-tab','rejected-list','rejected-total')" id="btn-reject-tab"
+                class="btn px-[20px]">Rejected</button>
+        </div>
+
+        <!-- Job Cards -->
+        <section id="all-job" class="space-y-4">
+
+            <!-- No job card -->
+            <div id="no-all-job"
+                class=" card bg-base-200 shadow-sm hidden flex-col h-[350px] justify-center items-center">
+                <img class="mb-[20px]" src="asset/jobs.png" alt="">
+                <h1 class="text-[24px] text-[#002C5C] font-semibold">No jobs available </h1>
+                <p class="text-[16px] text-[#64748B] font-normal">Check back soon for new job opportunities</p>
+
+            </div>
+
+            <!-- Card 1 -->
+            <div id="card-1"
+                class="card bg-base-200 card-xs shadow-sm w-full  flex-row justify-between items-start p-6">
+
+                <!-- Card Contain -->
+                <div class="w-[90%] ">
+
+                    <h1 class="text-[18px] font-semibold text-black">Mobile First Corp</h1>
+                    <p class="mb-[20px] text-[16px] font-normal text-gray-400">React Native Developer</p>
+
+                    <ul class="flex gap-3 mb-[20px] text-[14px] font-normal text-gray-400 ">
+                        <li>Remote</li>
+                        <li>•</li>
+                        <li>Full-time </li>
+                        <li>•</li>
+                        <li> $130,000 - $175,000 </li>
+                    </ul>
+
+                    <p class="w-[120px] mb-2 rounded-sm text-[14px] font-medium text-black px-3 py-2 bg-[#EEF4FF]">NOT
+                        APPLIED</p>
+
+                    <p class="mb-[20px] text-[14px] font-normal text-[#323B49]">Build cross-platform mobile applications
+                        using React Native. Work on products used by millions of users worldwide.</p>
+
+                    <div class="flex justify-start gap-2">
+                        <button id="btn-interview" class="btn btn-outline btn-success">INTERVIEW</button>
+                        <button id="btn-reject" class="btn btn-outline btn-error">REJECTED</button>
+                    </div>
+
+
+
+
+
+                </div>
+
+                <!-- Deleted Button -->
+                <button class="del-btn btn btn-link hover:text-error no-underline">
+                    <i class="del-icon fa-regular fa-trash-can"></i>
+                </button>
+
+            </div>
+
+            <!-- Card 2 -->
+            <div id="card-2"
+                class="card  bg-base-200 card-xs shadow-sm w-full  flex-row justify-between items-start p-6">
+
+                <!-- Card Contain -->
+                <div class="w-[90%] ">
+
+                    <h1 class="text-[18px] font-semibold text-black">WebFlow Agency</h1>
+                    <p class="mb-[20px] text-[16px] font-normal text-gray-400">React Native Developer</p>
+
+                    <ul class="flex gap-3 mb-[20px] text-[14px] font-normal text-gray-400 ">
+                        <li>Remote</li>
+                        <li>•</li>
+                        <li>Full-time </li>
+                        <li>•</li>
+                        <li> $130,000 - $175,000 </li>
+                    </ul>
+
+                    <p class="w-[120px] mb-2 rounded-sm text-[14px] font-medium text-black px-3 py-2 bg-[#EEF4FF]">NOT
+                        APPLIED</p>
+
+                    <p class="mb-[20px] text-[14px] font-normal text-[#323B49]">Build cross-platform mobile applications
+                        using React Native. Work on products used by millions of users worldwide.</p>
+
+                    <div class="flex justify-start gap-2">
+                        <button id="btn-interview" class="btn btn-outline btn-success">INTERVIEW</button>
+                        <button id="btn-reject" class="btn btn-outline btn-error">REJECTED</button>
+                    </div>
+
+
+
+
+
+                </div>
+
+                <!-- Deleted Button -->
+                <button class="del-btn btn btn-link hover:text-error no-underline">
+                    <i class="del-icon fa-regular fa-trash-can"></i>
+                </button>
+            </div>
+
+            <!-- Card 3 -->
+            <div id="card-3"
+                class="card  bg-base-200 card-xs shadow-sm w-full  flex-row justify-between items-start p-6">
+
+                <!-- Card Contain -->
+                <div class="w-[90%] p-6">
+
+                    <h1 class="text-[18px] font-semibold text-black">DataViz Solutions</h1>
+                    <p class="mb-[20px] text-[16px] font-normal text-gray-400">React Native Developer</p>
+
+                    <ul class="flex gap-3 mb-[20px] text-[14px] font-normal text-gray-400 ">
+                        <li>Remote</li>
+                        <li>•</li>
+                        <li>Full-time </li>
+                        <li>•</li>
+                        <li> $130,000 - $175,000 </li>
+                    </ul>
+
+                    <p class="w-[120px] mb-2 rounded-sm text-[14px] font-medium text-black px-3 py-2 bg-[#EEF4FF]">NOT
+                        APPLIED</p>
+
+                    <p class="mb-[20px] text-[14px] font-normal text-[#323B49]">Build cross-platform mobile applications
+                        using React Native. Work on products used by millions of users worldwide.</p>
+
+                    <div class="flex justify-start gap-2">
+                        <button id="btn-interview" class="btn btn-outline btn-success">INTERVIEW</button>
+                        <button id="btn-reject" class="btn btn-outline btn-error">REJECTED</button>
+                    </div>
+
+
+                </div>
+
+                <!-- Deleted Button -->
+                <button class="del-btn btn btn-link hover:text-error no-underline">
+                    <i class="del-icon fa-regular fa-trash-can"></i>
+                </button>
+            </div>
+
+            <!-- Card 4 -->
+            <div id="card-4"
+                class="card  bg-base-200 card-xs shadow-sm w-full  flex-row justify-between items-start p-6">
+
+                <!-- Card Contain -->
+                <div class="w-[90%] p-6">
+
+                    <h1 class="text-[18px] font-semibold text-black">DataViz Solutions</h1>
+                    <p class="mb-[20px] text-[16px] font-normal text-gray-400">React Native Developer</p>
+
+                    <ul class="flex gap-3 mb-[20px] text-[14px] font-normal text-gray-400 ">
+                        <li>Remote</li>
+                        <li>•</li>
+                        <li>Full-time </li>
+                        <li>•</li>
+                        <li> $130,000 - $175,000 </li>
+                    </ul>
+
+                    <p class="w-[120px] mb-2 rounded-sm text-[14px] font-medium text-black px-3 py-2 bg-[#EEF4FF]">NOT
+                        APPLIED</p>
+
+                    <p class="mb-[20px] text-[14px] font-normal text-[#323B49]">Build cross-platform mobile applications
+                        using React Native. Work on products used by millions of users worldwide.</p>
+
+                    <div class="flex justify-start gap-2">
+                        <button id="btn-interview" class="btn btn-outline btn-success">INTERVIEW</button>
+                        <button id="btn-reject" class="btn btn-outline btn-error">REJECTED</button>
+                    </div>
+
+
+                </div>
+
+                <!-- Deleted Button -->
+                <button class="del-btn btn btn-link hover:text-error no-underline">
+                    <i class="del-icon fa-regular fa-trash-can"></i>
+                </button>
+            </div>
+
+            <!-- Card 5 -->
+            <div id="card-5"
+                class="card  bg-base-200 card-xs shadow-sm w-full  flex-row justify-between items-start p-6">
+
+                <!-- Card Contain -->
+                <div class="w-[90%] p-6">
+
+                    <h1 class="text-[18px] font-semibold text-black">DataViz Solutions</h1>
+                    <p class="mb-[20px] text-[16px] font-normal text-gray-400">React Native Developer</p>
+
+                    <ul class="flex gap-3 mb-[20px] text-[14px] font-normal text-gray-400 ">
+                        <li>Remote</li>
+                        <li>•</li>
+                        <li>Full-time </li>
+                        <li>•</li>
+                        <li> $130,000 - $175,000 </li>
+                    </ul>
+
+                    <p class="w-[120px] mb-2 rounded-sm text-[14px] font-medium text-black px-3 py-2 bg-[#EEF4FF]">NOT
+                        APPLIED</p>
+
+                    <p class="mb-[20px] text-[14px] font-normal text-[#323B49]">Build cross-platform mobile applications
+                        using React Native. Work on products used by millions of users worldwide.</p>
+
+                    <div class="flex justify-start gap-2">
+                        <button id="btn-interview" class="btn btn-outline btn-success">INTERVIEW</button>
+                        <button id="btn-reject" class="btn btn-outline btn-error">REJECTED</button>
+                    </div>
+
+
+                </div>
+
+                <!-- Deleted Button -->
+                <button class="del-btn btn btn-link hover:text-error no-underline">
+                    <i class="del-icon fa-regular fa-trash-can"></i>
+                </button>
+            </div>
+
+        </section>
+
+        <section id="interview-list" class="space-y-4 my-10 hidden">
+
+            <!-- No job card -->
+            <div id="no-interview-list"
+                class=" card bg-base-200 shadow-sm flex flex-col h-[350px] justify-center items-center">
+                <img class="mb-[20px]" src="asset/jobs.png" alt="">
+                <h1 class="text-[24px] text-[#002C5C] font-semibold">No jobs available </h1>
+                <p class="text-[16px] text-[#64748B] font-normal">Check back soon for new job opportunities</p>
+
+            </div>
+
+            <!-- Card 3 -->
+            <div id="card-3"
+                class="card  bg-base-200 card-xs shadow-sm w-full  flex-row justify-between items-start p-6">
+
+                <!-- Card Contain -->
+                <div class="w-[90%] p-6">
+
+                    <h1 class="text-[18px] font-semibold text-black">DataViz Solutions</h1>
+                    <p class="mb-[20px] text-[16px] font-normal text-gray-400">React Native Developer</p>
+
+                    <ul class="flex gap-3 mb-[20px] text-[14px] font-normal text-gray-400 ">
+                        <li>Remote</li>
+                        <li>•</li>
+                        <li>Full-time </li>
+                        <li>•</li>
+                        <li> $130,000 - $175,000 </li>
+                    </ul>
+
+                    <p class="w-[120px] mb-2 rounded-sm text-[14px] font-medium text-black px-3 py-2 bg-[#EEF4FF]">NOT
+                        APPLIED</p>
+
+                    <p class="mb-[20px] text-[14px] font-normal text-[#323B49]">Build cross-platform mobile applications
+                        using React Native. Work on products used by millions of users worldwide.</p>
+
+                    <div class="flex justify-start gap-2">
+                        <button id="btn-interview" class="btn btn-outline btn-success">INTERVIEW</button>
+                        <button id="btn-reject" class="btn btn-outline btn-error">REJECTED</button>
+                    </div>
+
+
+                </div>
+
+                <!-- Deleted Button -->
+                <button class="del-btn btn btn-link hover:text-error no-underline">
+                    <i class="del-icon fa-regular fa-trash-can"></i>
+                </button>
+            </div>
+
+            <!-- Card 4 -->
+            <div id="card-4"
+                class="card  bg-base-200 card-xs shadow-sm w-full  flex-row justify-between items-start p-6">
+
+                <!-- Card Contain -->
+                <div class="w-[90%] p-6">
+
+                    <h1 class="text-[18px] font-semibold text-black">DataViz Solutions</h1>
+                    <p class="mb-[20px] text-[16px] font-normal text-gray-400">React Native Developer</p>
+
+                    <ul class="flex gap-3 mb-[20px] text-[14px] font-normal text-gray-400 ">
+                        <li>Remote</li>
+                        <li>•</li>
+                        <li>Full-time </li>
+                        <li>•</li>
+                        <li> $130,000 - $175,000 </li>
+                    </ul>
+
+                    <p class="w-[120px] mb-2 rounded-sm text-[14px] font-medium text-black px-3 py-2 bg-[#EEF4FF]">NOT
+                        APPLIED</p>
+
+                    <p class="mb-[20px] text-[14px] font-normal text-[#323B49]">Build cross-platform mobile applications
+                        using React Native. Work on products used by millions of users worldwide.</p>
+
+                    <div class="flex justify-start gap-2">
+                        <button id="btn-interview" class="btn btn-outline btn-success">INTERVIEW</button>
+                        <button id="btn-reject" class="btn btn-outline btn-error">REJECTED</button>
+                    </div>
+
+
+                </div>
+
+                <!-- Deleted Button -->
+                <button class="del-btn btn btn-link hover:text-error no-underline">
+                    <i class="del-icon fa-regular fa-trash-can"></i>
+                </button>
+            </div>
+
+            <!-- Card 5 -->
+            <div id="card-5"
+                class="card  bg-base-200 card-xs shadow-sm w-full  flex-row justify-between items-start p-6">
+
+                <!-- Card Contain -->
+                <div class="w-[90%] p-6">
+
+                    <h1 class="text-[18px] font-semibold text-black">DataViz Solutions</h1>
+                    <p class="mb-[20px] text-[16px] font-normal text-gray-400">React Native Developer</p>
+
+                    <ul class="flex gap-3 mb-[20px] text-[14px] font-normal text-gray-400 ">
+                        <li>Remote</li>
+                        <li>•</li>
+                        <li>Full-time </li>
+                        <li>•</li>
+                        <li> $130,000 - $175,000 </li>
+                    </ul>
+
+                    <p class="w-[120px] mb-2 rounded-sm text-[14px] font-medium text-black px-3 py-2 bg-[#EEF4FF]">NOT
+                        APPLIED</p>
+
+                    <p class="mb-[20px] text-[14px] font-normal text-[#323B49]">Build cross-platform mobile applications
+                        using React Native. Work on products used by millions of users worldwide.</p>
+
+                    <div class="flex justify-start gap-2">
+                        <button id="btn-interview" class="btn btn-outline btn-success">INTERVIEW</button>
+                        <button id="btn-reject" class="btn btn-outline btn-error">REJECTED</button>
+                    </div>
+
+
+                </div>
+
+                <!-- Deleted Button -->
+                <button class="del-btn btn btn-link hover:text-error no-underline">
+                    <i class="del-icon fa-regular fa-trash-can"></i>
+                </button>
+            </div>
+
+
+        </section>
+
+        <section id="rejected-list" class="space-y-4 my-10 hidden">
+
+            <!-- No job card -->
+            <div id="no-rejected-list"
+                class=" card bg-base-200 shadow-sm flex flex-col h-[350px] justify-center items-center">
+                <img class="mb-[20px]" src="asset/jobs.png" alt="">
+                <h1 class="text-[24px] text-[#002C5C] font-semibold">No jobs available </h1>
+                <p class="text-[16px] text-[#64748B] font-normal">Check back soon for new job opportunities</p>
+
+            </div>
+
+            <!-- Card 2 -->
+            <div id="card-2"
+                class="card  bg-base-200 card-xs shadow-sm w-full  flex-row justify-between items-start p-6">
+
+                <!-- Card Contain -->
+                <div class="w-[90%] ">
+
+                    <h1 class="text-[18px] font-semibold text-black">WebFlow Agency</h1>
+                    <p class="mb-[20px] text-[16px] font-normal text-gray-400">React Native Developer</p>
+
+                    <ul class="flex gap-3 mb-[20px] text-[14px] font-normal text-gray-400 ">
+                        <li>Remote</li>
+                        <li>•</li>
+                        <li>Full-time </li>
+                        <li>•</li>
+                        <li> $130,000 - $175,000 </li>
+                    </ul>
+
+                    <p class="w-[120px] mb-2 rounded-sm text-[14px] font-medium text-black px-3 py-2 bg-[#EEF4FF]">NOT
+                        APPLIED</p>
+
+                    <p class="mb-[20px] text-[14px] font-normal text-[#323B49]">Build cross-platform mobile applications
+                        using React Native. Work on products used by millions of users worldwide.</p>
+
+                    <div class="flex justify-start gap-2">
+                        <button id="btn-interview" class="btn btn-outline btn-success">INTERVIEW</button>
+                        <button id="btn-reject" class="btn btn-outline btn-error">REJECTED</button>
+                    </div>
+
+
+
+
+
+                </div>
+
+                <!-- Deleted Button -->
+                <button class="del-btn btn btn-link hover:text-error no-underline">
+                    <i class="del-icon fa-regular fa-trash-can"></i>
+                </button>
+            </div>
+
+            <!-- Card 1 -->
+            <div id="card-1"
+                class="card bg-base-200 card-xs shadow-sm w-full  flex-row justify-between items-start p-6">
+
+                <!-- Card Contain -->
+                <div class="w-[90%] ">
+
+                    <h1 class="text-[18px] font-semibold text-black">Mobile First Corp</h1>
+                    <p class="mb-[20px] text-[16px] font-normal text-gray-400">React Native Developer</p>
+
+                    <ul class="flex gap-3 mb-[20px] text-[14px] font-normal text-gray-400 ">
+                        <li>Remote</li>
+                        <li>•</li>
+                        <li>Full-time </li>
+                        <li>•</li>
+                        <li> $130,000 - $175,000 </li>
+                    </ul>
+
+                    <p class="w-[120px] mb-2 rounded-sm text-[14px] font-medium text-black px-3 py-2 bg-[#EEF4FF]">NOT
+                        APPLIED</p>
+
+                    <p class="mb-[20px] text-[14px] font-normal text-[#323B49]">Build cross-platform mobile applications
+                        using React Native. Work on products used by millions of users worldwide.</p>
+
+                    <div class="flex justify-start gap-2">
+                        <button id="btn-interview" class="btn btn-outline btn-success">INTERVIEW</button>
+                        <button id="btn-reject" class="btn btn-outline btn-error">REJECTED</button>
+                    </div>
+
+
+
+
+
+                </div>
+
+                <!-- Deleted Button -->
+                <button class="del-btn btn btn-link hover:text-error no-underline">
+                    <i class="del-icon fa-regular fa-trash-can"></i>
+                </button>
+
+            </div>
+        </section>
+
+
+
+
+
+    </main>
+
+
+    <script src="script/toggle.js"></script>
+    <script src="script/delegate.js"></script>
+    <script src="script/delete.js"></script>
+    <script src="script/count.js"></script>
+</body>
+
+</html>
