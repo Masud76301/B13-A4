@@ -1,14 +1,15 @@
 const allJobCount = document.getElementById('all-job');
 const allInterviewCount = document.getElementById('interview-card-list');
-const allRejectedCount = document.getElementById('rejected-list');
+const allRejectedCount = document.getElementById('rejected-card-list');
 const interviewCardList = document.getElementById('interview-card-list');
+const rejectedCardList = document.getElementById('rejected-card-list');
 
 count();
 
 function count() {
     totalJob = allJobCount.children.length - 1;
     totalInterview = allInterviewCount.children.length;
-    totalRejected = allRejectedCount.children.length - 1;
+    totalRejected = allRejectedCount.children.length;
 
     console.log("why not working");
 
@@ -20,17 +21,22 @@ function count() {
     document.getElementById('rejected-total').innerText = totalRejected;
 
     if (totalInterview != 0) {
-     document.getElementById('no-interview-list').classList.remove('flex');
-    document.getElementById('no-interview-list').classList.add('hidden');
-   
-}
+        document.getElementById('no-interview-list').classList.remove('flex');
+        document.getElementById('no-interview-list').classList.add('hidden');
+
+    }
+
+
+    if (totalRejected != 0) {
+        document.getElementById('no-interview-list').classList.remove('flex');
+        document.getElementById('no-rejected-list').classList.add('hidden');
+    }
+
 }
 
 
 
-if (totalRejected != 0) {
-    document.getElementById('no-rejected-list').classList.add('hidden');
-}
+
 
 document.getElementById('all-job')
     .addEventListener('click', function (event) {
@@ -72,8 +78,8 @@ document.getElementById('interview-list')
 document.getElementById('rejected-list')
     .addEventListener('click', function (event) {
         if (event.target.classList.contains('del-icon')) {
-            const allJob = document.getElementById('rejected-list');
-            const totalJob = allJob.children.length - 2;
+            const allJob = document.getElementById('rejected-card-list');
+            const totalJob = allJob.children.length - 1;
             document.getElementById('total-reject').innerText = totalJob;
             document.getElementById('rejected-total').innerText = totalJob;
 
