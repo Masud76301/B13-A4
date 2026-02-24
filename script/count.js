@@ -11,7 +11,6 @@ function count() {
     totalInterview = allInterviewCount.children.length;
     totalRejected = allRejectedCount.children.length;
 
-    console.log("why not working");
 
     document.getElementById('total-job').innerText = totalJob;
     document.getElementById('job-total').innerText = totalJob;
@@ -25,11 +24,18 @@ function count() {
         document.getElementById('no-interview-list').classList.add('hidden');
 
     }
-
+    else {
+        document.getElementById('no-interview-list').classList.remove('hidden');
+        document.getElementById('no-interview-list').classList.add('flex');
+    }
 
     if (totalRejected != 0) {
-        document.getElementById('no-interview-list').classList.remove('flex');
+        document.getElementById('no-rejected-list').classList.remove('flex');
         document.getElementById('no-rejected-list').classList.add('hidden');
+    }
+    else {
+        document.getElementById('no-rejected-list').classList.remove('hidden');
+        document.getElementById('no-rejected-list').classList.add('flex');
     }
 
 }

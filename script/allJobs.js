@@ -89,7 +89,6 @@ function interviewListAdded() {
 
 // Interview list card deleted 
 
-
 document.getElementById('interview-list')
     .addEventListener('click', function (event) {
         if (event.target.classList.contains('del-icon')) {
