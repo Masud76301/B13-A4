@@ -31,7 +31,10 @@ document.getElementById('all-job')
 
 
             if (!cardExit) {
-                jobInterviewList.push(cardInfo);
+                const cardRejectExit = jobRejectedList.find(item => item.companyName == cardInfo.companyName)
+                if (!cardRejectExit) {
+                    jobInterviewList.push(cardInfo);
+                }
             }
             interviewListAdded();
             count();
@@ -129,8 +132,12 @@ document.getElementById('all-job')
 
 
             if (!cardExit) {
-                jobRejectedList.push(cardInfo);
+                const cardInterviewExit = jobInterviewList.find(item => item.companyName == cardInfo.companyName)
+                if (!cardInterviewExit) {
+                    jobRejectedList.push(cardInfo);
+                }
             }
+
             rejectedListAdded();
             count();
         }
