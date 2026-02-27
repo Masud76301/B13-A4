@@ -3,6 +3,9 @@ let jobRejectedList = [];
 
 
 
+
+
+
 // Interview list card add 
 document.getElementById('all-job')
     .addEventListener('click', function (event) {
@@ -12,10 +15,17 @@ document.getElementById('all-job')
 
             const companyName = parentNode.querySelector('.company-name').innerText;
             const jobPosition = parentNode.querySelector('.job-position').innerText;
+            const jobStatus = parentNode.querySelector('.job-status').innerText;
             const jobLocation = parentNode.querySelector('.job-location').innerText;
             const jobType = parentNode.querySelector('.job-type').innerText;
             const salary = parentNode.querySelector('.salary').innerText;
             const jobDescription = parentNode.querySelector('.job-description').innerText;
+
+            parentNode.querySelector('.job-status').classList.remove('bg-[#EEF4FF]', 'bg-error', 'text-black', 'w-[120]', 'text-[14px]');
+            parentNode.querySelector('.job-status').classList.add('text-center', 'bg-success', 'text-white', 'w-[90]', 'text-[12px]');
+            parentNode.querySelector('.job-status').innerText = "INTERVIEW";
+            
+
 
             const cardInfo = {
                 companyName,
@@ -27,14 +37,21 @@ document.getElementById('all-job')
 
             }
 
+            const reCardExit = jobRejectedList.find(item => item.companyName == cardInfo.companyName)
+
+
+            if (reCardExit) {
+                jobRejectedList.pop(cardInfo);
+                rejectedListAdded();
+            }
+
+
             const cardExit = jobInterviewList.find(item => item.companyName == cardInfo.companyName)
 
 
             if (!cardExit) {
-                const cardRejectExit = jobRejectedList.find(item => item.companyName == cardInfo.companyName)
-                if (!cardRejectExit) {
-                    jobInterviewList.push(cardInfo);
-                }
+                jobInterviewList.push(cardInfo);
+
             }
             interviewListAdded();
             count();
@@ -55,24 +72,21 @@ function interviewListAdded() {
                 <div class="w-[90%] ">
 
                     <h1 class="company-name text-[18px] font-semibold text-black">${interview.companyName}</h1>
-                    <p class="job-position mb-[20px] text-[16px] font-normal text-gray-400">React Native Developer</p>
+                    <p class="job-position mb-[20px] text-[16px] font-normal text-gray-400">${interview.jobPosition}</p>
 
                     <ul class="flex gap-3 mb-[20px] text-[14px] font-normal text-gray-400 ">
-                        <li class="job-location">Remote</li>
+                        <li class="job-location">${interview.jobLocation}</li>
                         <li>•</li>
-                        <li class="job-type">Full-time </li>
+                        <li class="job-type">${interview.jobType}</li>
                         <li>•</li>
-                        <li class="salary"> $130,000 - $175,000 </li>
+                        <li class="salary"> ${interview.salary} </li>
                     </ul>
 
                     <p
-                        class="job-status w-[120px] mb-2 rounded-sm text-[14px] font-medium text-black px-3 py-2 bg-[#EEF4FF]">
-                        NOT
-                        APPLIED</p>
+                        class="job-status w-[90px] text-center mb-2 rounded-sm text-[12px] text-white font-medium  px-3 py-2 bg-success">
+                        INTERVIEW</p>
 
-                    <p class="job-description mb-[20px] text-[14px] font-normal text-[#323B49]">Build cross-platform
-                        mobile applications
-                        using React Native. Work on products used by millions of users worldwide.</p>
+                    <p class="job-description mb-[20px] text-[14px] font-normal text-[#323B49]">${interview.jobDescription}</p>
 
                     <div class="flex justify-start gap-2">
                         <button class="interview-btn btn btn-outline btn-success">INTERVIEW</button>
@@ -90,18 +104,23 @@ function interviewListAdded() {
 }
 
 
-// Interview list card deleted 
+// Interview list card deleted
 
-document.getElementById('interview-list')
-    .addEventListener('click', function (event) {
-        if (event.target.classList.contains('del-icon')) {
-            const siblingNode = event.target.parentNode.parentNode;
-            const companyName = siblingNode.querySelector('.company-name').innerText;
+interviewCardDel();
+function interviewCardDel() {
+    document.getElementById('interview-list')
+        .addEventListener('click', function (event) {
+            if (event.target.classList.contains('del-icon')) {
+                const siblingNode = event.target.parentNode.parentNode;
+                const companyName = siblingNode.querySelector('.company-name').innerText;
 
-            jobInterviewList = jobInterviewList.filter(item => item.companyName != companyName)
-        }
+                jobInterviewList = jobInterviewList.filter(item => item.companyName != companyName)
+            }
 
-    })
+        })
+
+}
+
 
 
 // Rejected list card add 
@@ -118,6 +137,11 @@ document.getElementById('all-job')
             const salary = parentNode.querySelector('.salary').innerText;
             const jobDescription = parentNode.querySelector('.job-description').innerText;
 
+
+            parentNode.querySelector('.job-status').classList.remove('bg-[#EEF4FF]', 'bg-success', 'text-black', 'w-[120]', 'text-[14px]');
+            parentNode.querySelector('.job-status').classList.add('text-center', 'bg-error', 'text-white', 'w-[90]', 'text-[12px]');
+            parentNode.querySelector('.job-status').innerText = "REJECTED";
+
             const cardInfo = {
                 companyName,
                 jobPosition,
@@ -128,14 +152,20 @@ document.getElementById('all-job')
 
             }
 
+            const inCardExit = jobInterviewList.find(item => item.companyName == cardInfo.companyName)
+
+
+            if (inCardExit) {
+                jobInterviewList.pop(cardInfo);
+                interviewListAdded();
+            }
+
+
             const cardExit = jobRejectedList.find(item => item.companyName == cardInfo.companyName)
 
 
             if (!cardExit) {
-                const cardInterviewExit = jobInterviewList.find(item => item.companyName == cardInfo.companyName)
-                if (!cardInterviewExit) {
-                    jobRejectedList.push(cardInfo);
-                }
+                jobRejectedList.push(cardInfo);
             }
 
             rejectedListAdded();
@@ -157,24 +187,19 @@ function rejectedListAdded() {
                 <div class="w-[90%] ">
 
                     <h1 class="company-name text-[18px] font-semibold text-black">${rejected.companyName}</h1>
-                    <p class="job-position mb-[20px] text-[16px] font-normal text-gray-400">React Native Developer</p>
+                    <p class="job-position mb-[20px] text-[16px] font-normal text-gray-400">${rejected.jobPosition}</p>
 
                     <ul class="flex gap-3 mb-[20px] text-[14px] font-normal text-gray-400 ">
-                        <li class="job-location">Remote</li>
+                        <li class="job-location">${rejected.jobLocation}</li>
                         <li>•</li>
-                        <li class="job-type">Full-time </li>
+                        <li class="job-type">${rejected.jobType}</li>
                         <li>•</li>
-                        <li class="salary"> $130,000 - $175,000 </li>
+                        <li class="salary"> ${rejected.salary}</li>
                     </ul>
 
-                    <p
-                        class="job-status w-[120px] mb-2 rounded-sm text-[14px] font-medium text-black px-3 py-2 bg-[#EEF4FF]">
-                        NOT
-                        APPLIED</p>
+                    <p class="job-status w-[90px] text-center mb-2 rounded-sm text-[12px] font-medium text-white px-3 py-2 bg-red-500">REJECTED</p>
 
-                    <p class="job-description mb-[20px] text-[14px] font-normal text-[#323B49]">Build cross-platform
-                        mobile applications
-                        using React Native. Work on products used by millions of users worldwide.</p>
+                    <p class="job-description mb-[20px] text-[14px] font-normal text-[#323B49]">${rejected.jobDescription}</p>
 
                     <div class="flex justify-start gap-2">
                         <button class="interview-btn btn btn-outline btn-success">INTERVIEW</button>
@@ -192,15 +217,20 @@ function rejectedListAdded() {
 }
 
 // Rejected list card deleted 
+rejectedCardDel();
+function rejectedCardDel() {
+    document.getElementById('rejected-list')
+        .addEventListener('click', function (event) {
+            if (event.target.classList.contains('del-icon')) {
+                const siblingNode = event.target.parentNode.parentNode;
+                const companyName = siblingNode.querySelector('.company-name').innerText;
+
+                jobRejectedList = jobRejectedList.filter(item => item.companyName != companyName)
+            }
+
+        })
+}
 
 
-document.getElementById('rejected-list')
-    .addEventListener('click', function (event) {
-        if (event.target.classList.contains('del-icon')) {
-            const siblingNode = event.target.parentNode.parentNode;
-            const companyName = siblingNode.querySelector('.company-name').innerText;
+// card status toggling
 
-            jobRejectedList = jobRejectedList.filter(item => item.companyName != companyName)
-        }
-
-    })

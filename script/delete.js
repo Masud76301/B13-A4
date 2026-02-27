@@ -4,9 +4,18 @@
 // }
 
 document.querySelector('main')
-    .addEventListener('click', function(event) {
-        if(event.target.classList.contains('del-icon')){
+    .addEventListener('click', function (event) {
+        if (event.target.classList.contains('del-icon')) {
             const parentNode = event.target.parentNode.parentNode;
             parentNode.remove();
+            
+            const companyName = parentNode.querySelector('.company-name').innerText;
+
+            jobInterviewList = jobInterviewList.filter(item => item.companyName != companyName)
+            interviewListAdded();
+
+            jobRejectedList = jobRejectedList.filter(item => item.companyName != companyName);
+            rejectedListAdded();
+            count();
         }
     })
